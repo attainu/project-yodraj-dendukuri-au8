@@ -44,26 +44,26 @@ def post_ifttt_webhook(value, event):
     requests.post(post_event, json=data) 
 
 # When Choose TELEGRAM  Notification,Push IFTTT Master Driver That Fetches The Data And Post TO App. 
-def telegram_master_driver(alert, time_interval, bitcoin_price, format_bitcoin,BITCOIN_ALERT_LIMIT):
-    print("Welcome :) ")
-    print("Bitcoin Notification Updating")
-    TIME_INTERVAL = float(time_interval[0])
-    x = 1
-    for i in tqdm(range(0,100000)):
-        for x in range(0,1000):
-            x*=4 
-    while True:
-        if bitcoin_price < BITCOIN_ALERT_LIMIT:  # IF Bitcoin Price Is BeloW Alert Limit, Notification Sends To This NUmber - 919951868731
-            print("You Will Receive a SMS in This Number - 919951868731")
-            event = 'Bitcoin_Price_Emergency'
-            post_ifttt_webhook(format_bitcoin, event)
+# def telegram_master_driver(alert, time_interval, bitcoin_price, format_bitcoin,BITCOIN_ALERT_LIMIT):
+#     print("Welcome :) ")
+#     print("Bitcoin Notification Updating")
+#     TIME_INTERVAL = float(time_interval[0])
+#     x = 1
+#     for i in tqdm(range(0,100000)):
+#         for x in range(0,1000):
+#             x*=4 
+#     while True:
+#         # if bitcoin_price < BITCOIN_ALERT_LIMIT:  # IF Bitcoin Price Is BeloW Alert Limit, Notification Sends To This NUmber - 919951868731
+#         #     print("You Will Receive a SMS in This Number - 919951868731")
+#         #     event = 'Bitcoin_Price_Emergency'
+#         #     post_ifttt_webhook(format_bitcoin, event)
             
-        else:                # Else Message Sends To telegram
-            print('You will Receive a Text-Message In Telegram')
-            event = 'Latest_Bitcoin_Price_Alert'
-            post_ifttt_webhook(format_bitcoin, event)
+#         else:      
+#             print('You will Receive a Text-Message In Telegram')
+#             event = 'Latest_Bitcoin_Price_Alert'
+#             post_ifttt_webhook(format_bitcoin, event)
 
-        time.sleep(5 * TIME_INTERVAL)
+#         time.sleep(5 * TIME_INTERVAL)
 
 # When Choose Twitter Notification,Push IFTTT Master Driver That Fetches The Data And Post TO App. 
 def twitter_master_driver(alert, time_interval, bitcoin_price, format_bitcoin, BITCOIN_ALERT_LIMIT):
@@ -75,12 +75,12 @@ def twitter_master_driver(alert, time_interval, bitcoin_price, format_bitcoin, B
         for x in range(0,1000):
             x*=4 
     while True:
-        if bitcoin_price < BITCOIN_ALERT_LIMIT:     ## IF Bitcoin Price Is BeloW Alert Limit, Notification Sends To This NUmber - 919951868731
-            print("You Will Receive a SMS in This Number - 919951868731")
-            event = 'Bitcoin_Price_Emergency'
-            post_ifttt_webhook(format_bitcoin, event)
+        # if bitcoin_price < BITCOIN_ALERT_LIMIT:     ## IF Bitcoin Price Is BeloW Alert Limit, Notification Sends To This NUmber - 919951868731
+        #     print("You Will Receive a SMS in This Number - 919951868731")
+        #     event = 'Bitcoin_Price_Emergency'
+        #     post_ifttt_webhook(format_bitcoin, event)
             
-        else:                   # Else Tweets The Twitter Acount
+        if bitcoin_price > BITCOIN_ALERT_LIMIT:                   # Else Tweets The Twitter Acount
             print('Plese Follow This Twitter Acount - https://twitter.com/Yodraj_Dys')
             event = 'Latest_bitcoin_price'
             post_ifttt_webhook(format_bitcoin, event)
@@ -111,19 +111,19 @@ def MainControlFunc():
 
     # This Is The Switch Control This Will Call Only That Function That Is Mentioned
     # By User And Transfer The Control To It.
-    if(args.destination_app == 'TELEGRAM' and args.currency == 'INR'):
-        bitcoin_price = get_latest_bitcoin_price_in_inr()
-        format_bitcoin = format_bitcoin_price_in_inr(bitcoin_price)
-        BITCOIN_ALERT_LIMIT = float(args.alert_amount[0])
-        telegram_master_driver(args.alert_amount,
-                            args.time_interval,bitcoin_price,format_bitcoin,BITCOIN_ALERT_LIMIT)
+    # if(args.destination_app == 'TELEGRAM' and args.currency == 'INR'):
+    #     bitcoin_price = get_latest_bitcoin_price_in_inr()
+    #     format_bitcoin = format_bitcoin_price_in_inr(bitcoin_price)
+    #     BITCOIN_ALERT_LIMIT = float(args.alert_amount[0])
+    #     telegram_master_driver(args.alert_amount,
+    #                         args.time_interval,bitcoin_price,format_bitcoin,BITCOIN_ALERT_LIMIT)
     
-    if(args.destination_app == 'TELEGRAM' and args.currency == 'USD'):
-        bitcoin_price = get_latest_bitcoin_price_in_usd()
-        format_bitcoin = format_bitcoin_price_in_usd(bitcoin_price)
-        BITCOIN_ALERT_LIMIT = float(args.alert_amount[1])
-        telegram_master_driver(args.alert_amount,
-                            args.time_interval,bitcoin_price,format_bitcoin,BITCOIN_ALERT_LIMIT)
+    # if(args.destination_app == 'TELEGRAM' and args.currency == 'USD'):
+    #     bitcoin_price = get_latest_bitcoin_price_in_usd()
+    #     format_bitcoin = format_bitcoin_price_in_usd(bitcoin_price)
+    #     BITCOIN_ALERT_LIMIT = float(args.alert_amount[1])
+    #     telegram_master_driver(args.alert_amount,
+    #                         args.time_interval,bitcoin_price,format_bitcoin,BITCOIN_ALERT_LIMIT)
 
     if(args.destination_app == 'TWITTER' and args.currency == 'INR'):
         bitcoin_price = get_latest_bitcoin_price_in_inr()
